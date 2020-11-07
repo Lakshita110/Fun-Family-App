@@ -18,7 +18,11 @@ def create_app(config_class=Config):
         # from .models import 
         db.create_all()
         login_manager.init_app(app)
-        # sess.init_app(app)    
+        # sess.init_app(app)   
+
+    from app.auth.routes import auth
+    # from app.quiz.routes import quiz
+    app.register_blueprint(auth) 
 
     return app
 

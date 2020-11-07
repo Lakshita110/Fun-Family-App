@@ -1,0 +1,42 @@
+{% extends "base.html"%}
+
+{% block body%}
+<header class="masthead text-center text-white">
+    <div class="masthead-content">
+      <div class="container">
+        <h2 class="masthead-subheading mb-0">Login</h2>
+      </div>
+    </div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+  </header>
+
+  <section>
+    <div class="container p-2">
+      <div class="row justify-content-center">
+        <div class="col-md-4 p-4 justify-content-center">
+          <form class="" action="" method="post" novalidate>
+              {{ form.hidden_tag() }}
+              <p class="">
+                  {{ form.username.label }}<br>
+                  {{ form.username(size=32, class_="form-control") }}<br>
+                  {% for error in form.username.errors %}
+                  <span class="clr2">[{{ error }}]</span>
+                  {% endfor %}
+              </p>
+              <p class="">
+                  {{ form.password.label }}<br>
+                  {{ form.password(size=32, class_="form-control") }}<br>
+                  {% for error in form.password.errors %}
+                  <span class="clr2">[{{ error }}]</span>
+                  {% endfor %}
+              </p>
+              <div class="form-check">{{ form.remember_me(class_="form-check-input") }} {{ form.remember_me.label(class_="form-check-label") }}</p>
+              {{ form.submit(class_="btn btn-primary") }}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+  </section>
+
+{% endblock %}
