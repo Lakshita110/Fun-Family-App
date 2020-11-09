@@ -1,0 +1,31 @@
+{% extends "userbase.html"%}
+
+{% block body%}
+
+<section>
+    <div class="container p-2">
+      <div class="row justify-content-center">
+        <div class="col-md-4 p-4 justify-content-center">
+            <form class="" action="" method="post" novalidate>
+                {{ form.hidden_tag() }}    
+                <p class="">
+                    {{ form.value.label }}<br>
+                    {{ form.value(size=32, class_="form-control") }}<br>
+                    {% for error in form.value.errors %}
+                    <span class="clr2">[{{ error }}]</span>
+                    {% endfor %} </p>
+                {{ form.submit(class_="btn btn-primary align-center") }}
+            </form>
+            <ul class="m-3">
+                {% for item in items %}
+                <li><p>{{ item.value }} <a href="{{ url_for('lists.complete', item_id=item._id, list_type=list) }}">Complete</a></p></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock %}

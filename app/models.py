@@ -99,9 +99,7 @@ class Item(db.Model):
 
     _id = db.Column(db.Integer, primary_key=True, unique=True)
     value = db.Column(db.String(120))
-    assigned_to = db.Column(db.Integer, db.ForeignKey('user._id'))
     created_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
-    complete = db.Column(db.Boolean, default=False)
     list_id = db.Column(db.Integer, db.ForeignKey("list._id"))
 
     list = db.relationship("List", back_populates="items")

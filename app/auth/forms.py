@@ -1,11 +1,7 @@
-from logging import PlaceHolder
-from re import L
-from flask.signals import message_flashed
 from flask_wtf import FlaskForm
 from wtforms import (BooleanField, IntegerField, PasswordField, SelectField, StringField, SubmitField, TextAreaField)
 from wtforms.validators import (DataRequired, Email, EqualTo, Length, NumberRange, Optional, ValidationError)
 from app.models import User, Family
-from app import db
 
 # Form for registration displayed on register.html.
 class RegisterForm(FlaskForm):    

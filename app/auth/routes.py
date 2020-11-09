@@ -8,7 +8,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route("/landing")
 @auth.route("/", methods=['GET'])
-def index():
+def landing():
     return render_template ('landing.html')
 
 @auth.route("/dashboard")
@@ -52,16 +52,20 @@ def register():
                 return redirect(url_for('auth.register'))
         elif form.existing_family.data == False:
             family_name = form.family_name.data
-            family = Family(name=family_name)
-            family.set_password(form.family_password.data)
-            db.session.add(family)
-            db.session.commit()
-            family.initialise_lists()
-            user.set_family_id(family_name)
-            db.session.add(user)
-            db.session.commit()
-            flash('Congratulations, you are registered!')
-            return redirect(url_for('auth.login'))
+            if Family.query.filter_by(family_name=family_name).all() is None:
+                family = Family(name=family_name)
+                family.set_password(form.family_password.data)
+                db.session.add(family)
+                db.session.commit()
+                family.initialise_lists()
+                user.set_family_id(family_name)
+                db.session.add(user)
+                db.session.commit()
+                flash('Congratulations, you are registered!')
+                return redirect(url_for('auth.login'))
+            else:
+                flash('Try using a different family name.')
+                return redirect(url_for('auth.register'))
     return render_template('register.html',title='Register', form=form)
 
 @auth.route("/logout", methods=['GET', 'POST'])
