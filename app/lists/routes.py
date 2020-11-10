@@ -41,14 +41,16 @@ def todo():
     else:
         redirect(url_for('auth.login'))
 
-@lists.route('/complete/<list_type>/<item_id>', methods=['GET','POST']) 
-def complete(list_type, item_id):   
+@lists.route('/complete/<redirect>/<item_id>', methods=['GET','POST']) 
+def complete(redirect, item_id):   
     item = Item.query.filter_by(_id=int(item_id)).first() 
     db.session.delete(item)
     db.session.commit()   
-    if list_type == "shopping":
+    if redirect == "shopping":
         return redirect(url_for('lists.shopping')) 
-    elif list_type == "todo":
+    elif redirect == "todo":
         return redirect(url_for('lists.todo'))
+    elif redirect == "dashboard":
+        return redirect(url_for("auth.dashboard"))
 
 

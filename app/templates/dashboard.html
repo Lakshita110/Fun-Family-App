@@ -1,4 +1,28 @@
 {% extends "userbase.html"%}
 
 {% block body%}
+<div class="container">
+    <div class="row m-3">
+    <div class="col-md">
+    <h2 class="masthead-subheading mb-0">Shopping List</h2>
+    <h6>Click <a href="{{ url_for('lists.shopping') }}">here</a> to add items </h6>
+    <ul class="m-3">
+        {% for item in shopping_items %}
+        <li><p>{{ item.value }} <a href="{{ url_for('lists.complete', item_id=item._id, redirect='dashboard') }}">Complete</a></p></li>
+        {% endfor %}
+    </ul>
+</div>
+
+    <div class="col-md">
+    <h2 class="masthead-subheading mb-0">To-Do List</h2>
+    <h6>Click <a href="{{ url_for('lists.todo') }}">here</a> to add items </h6>
+    <ul class="m-3">
+        {% for item in todo_items %}
+        <li><p>{{ item.value }} <a href="{{ url_for('lists.complete', item_id=item._id, redirect='todo') }}">Complete</a></p></li>
+        {% endfor %}
+    </ul>
+</div>
+</div>
+</div>
+
 {% endblock %}

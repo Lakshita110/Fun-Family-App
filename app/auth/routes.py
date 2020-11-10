@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, Blueprint
 from .forms import LoginForm, RegisterForm
 from flask_login import current_user, login_required, login_user, logout_user
 from app import db
-from app.models import User, Family, List
+from app.models import User, Family, List, Item
 
 auth = Blueprint('auth', __name__)
 
@@ -13,7 +13,13 @@ def landing():
 
 @auth.route("/dashboard")
 def dashboard():
-    return render_template('userbase.html', title="Dashboard")
+    if current_user.is_authenticated:
+        family_id = current_user.family_id
+        shopping_list_id = List.query.filter_by(family_id=family_id, category="shopping").first().get_id()
+        shopping_items = Item.query.filter_by(list_id=shopping_list_id).all()
+        todo_list_id = List.query.filter_by(family_id=family_id, category="to_do").first().get_id()
+        todo_items = Item.query.filter_by(list_id=todo_list_id).all()
+        return render_template('dashboard.html', title="Dashboard", todo_items=todo_items, shopping_items=shopping_items)
 
 @auth.route("/login", methods=['GET', 'POST'])
 def login():

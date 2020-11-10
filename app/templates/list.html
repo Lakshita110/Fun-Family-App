@@ -1,6 +1,6 @@
 {% extends "userbase.html"%}
 
-{% block body%}
+{% block body %}
 
 <section>
     <div class="container p-2">
@@ -18,14 +18,12 @@
             </form>
             <ul class="m-3">
                 {% for item in items %}
-                <li><p>{{ item.value }} <a href="{{ url_for('lists.complete', item_id=item._id, list_type=list) }}">Complete</a></p></li>
+                <li><p>{{ item.value }} <a href="{{ url_for('lists.complete', item_id=item._id, redirect=list) }}">Complete</a></p></li>
                 {% endfor %}
             </ul>
         </div>
     </div>
   </div>
 </section>
-
-
 
 {% endblock %}
